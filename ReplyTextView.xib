@@ -36,11 +36,10 @@
                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PX5-E3-rCr">
-                    <rect key="frame" x="9" y="7" width="313" height="33"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PX5-E3-rCr">
+                    <rect key="frame" x="14" y="14" width="308" height="19"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <color key="textColor" red="0.058823529411764705" green="0.058823529411764705" blue="0.058823529411764705" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
+                    <attributedString key="attributedText"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSV-uQ-SKX">
@@ -79,33 +78,33 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="height" constant="45" id="3gT-Q9-xiK"/>
                 <constraint firstItem="2yH-gN-2yP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="6No-Pf-QvF"/>
                 <constraint firstItem="2yH-gN-2yP" firstAttribute="top" secondItem="nIT-6Y-lkZ" secondAttribute="bottom" constant="13" id="Esa-Z2-dAx"/>
                 <constraint firstItem="mSV-uQ-SKX" firstAttribute="leading" secondItem="PX5-E3-rCr" secondAttribute="trailing" constant="14" id="GTf-IW-daK"/>
                 <constraint firstAttribute="trailing" secondItem="Dd3-bl-cdK" secondAttribute="trailing" constant="14" id="HWL-8F-KCL"/>
                 <constraint firstAttribute="trailing" secondItem="mSV-uQ-SKX" secondAttribute="trailing" constant="14" id="P47-3R-Qhf"/>
-                <constraint firstItem="PX5-E3-rCr" firstAttribute="top" secondItem="nIT-6Y-lkZ" secondAttribute="bottom" constant="6" id="WOy-FQ-nsn"/>
+                <constraint firstItem="PX5-E3-rCr" firstAttribute="top" secondItem="nIT-6Y-lkZ" secondAttribute="bottom" constant="13" id="WOy-FQ-nsn"/>
                 <constraint firstAttribute="bottom" secondItem="GjW-NF-z1P" secondAttribute="bottom" constant="18" id="b2R-iV-Zym"/>
                 <constraint firstItem="Dd3-bl-cdK" firstAttribute="top" secondItem="nIT-6Y-lkZ" secondAttribute="bottom" constant="17" id="fOD-bO-QyA"/>
-                <constraint firstItem="PX5-E3-rCr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="9" id="gGP-eC-b2X"/>
-                <constraint firstAttribute="bottom" secondItem="PX5-E3-rCr" secondAttribute="bottom" constant="5" id="h9m-8d-fG6"/>
+                <constraint firstItem="PX5-E3-rCr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="gGP-eC-b2X"/>
+                <constraint firstAttribute="bottom" secondItem="PX5-E3-rCr" secondAttribute="bottom" constant="12" id="h9m-8d-fG6"/>
                 <constraint firstAttribute="trailing" secondItem="nIT-6Y-lkZ" secondAttribute="trailing" id="jP2-C1-Or9"/>
                 <constraint firstItem="mSV-uQ-SKX" firstAttribute="centerY" secondItem="PX5-E3-rCr" secondAttribute="centerY" id="opr-Os-0oq"/>
                 <constraint firstItem="nIT-6Y-lkZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="tIH-gS-X2P"/>
                 <constraint firstAttribute="trailing" secondItem="GjW-NF-z1P" secondAttribute="trailing" constant="14" id="tL6-y3-CiB"/>
                 <constraint firstItem="nIT-6Y-lkZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xhX-bu-wGN"/>
-                <constraint firstAttribute="height" constant="45" id="ykT-SZ-r7j"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="cancelButton" destination="Dd3-bl-cdK" id="Ztj-LR-MPA"/>
                 <outlet property="modifyButton" destination="GjW-NF-z1P" id="Pde-KU-EUN"/>
                 <outlet property="placeholderLabel" destination="2yH-gN-2yP" id="LSc-54-0Wr"/>
-                <outlet property="replyViewHeightLayoutConstraint" destination="ykT-SZ-r7j" id="9cK-bJ-U6r"/>
-                <outlet property="reportButton" destination="mSV-uQ-SKX" id="OJ9-oK-Tcy"/>
+                <outlet property="replyViewHeightLayoutConstraint" destination="3gT-Q9-xiK" id="4aj-98-ubz"/>
+                <outlet property="saveButton" destination="mSV-uQ-SKX" id="m4i-OC-Gti"/>
                 <outlet property="textView" destination="PX5-E3-rCr" id="wd5-wN-Vew"/>
             </connections>
-            <point key="canvasLocation" x="48.5" y="-129"/>
+            <point key="canvasLocation" x="15.5" y="-155.5"/>
         </view>
     </objects>
 </document>
