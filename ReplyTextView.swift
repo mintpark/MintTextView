@@ -8,25 +8,20 @@
 
 import UIKit
 
-//protocol ReplyTextViewDelegate: NSObjectProtocol {
-//    func replyTextViewHeightChanged(to height: CGFloat)
-//}
-
 class ReplyTextView: UIView, UIGestureRecognizerDelegate {
-//    var delegate: ReplyTextViewDelegate?
-    
     var dimView: UIView?
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var placeholderLabel: UILabel!
     
-    @IBOutlet weak var reportButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var modifyButton: UIButton!
     
     @IBOutlet weak var replyViewHeightLayoutConstraint: NSLayoutConstraint!
     
     fileprivate var initialSuperViewFrame: CGRect?
+    fileprivate var keyboardHeight: CGFloat?
     
     class func create() -> ReplyTextView {
         return Bundle.main.loadNibNamed("ReplyTextView", owner: nil, options: nil)!.last as! ReplyTextView
@@ -61,6 +56,13 @@ class ReplyTextView: UIView, UIGestureRecognizerDelegate {
         textView.delegate = self
         textView.tintColor = UIColor(hexString: "ff5073")
         textView.isEditable = true
+//        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        textView.textContainer.maximumNumberOfLines = 3
+        
+//        let style = NSMutableParagraphStyle()
+//        style.lineSpacing = 20
+//        textView.typingAttributes = [NSFontAttributeName: MBXFont.AppleSDGothicNeoLight(14.0), NSParagraphStyleAttributeName: style]
         
         placeholderLabel.isHidden = false
         
@@ -70,13 +72,13 @@ class ReplyTextView: UIView, UIGestureRecognizerDelegate {
         if SessionManager.sharedManager.isLogined() {
             placeholderLabel.text = "댓글을 남겨주세요"
             
-            reportButton.isHidden = false
-            reportButton.isEnabled = false
-            reportButton.alpha = 0.5
+            saveButton.isHidden = false
+            saveButton.isEnabled = false
+            saveButton.alpha = 0.5
         } else {
             placeholderLabel.text = "로그인 후 댓글을 남겨주세요"
             
-            reportButton.isHidden = true
+            saveButton.isHidden = true
         }
     }
     
@@ -102,9 +104,11 @@ class ReplyTextView: UIView, UIGestureRecognizerDelegate {
             UIView.animate(withDuration: duration, delay: 0, options: curve, animations: {
                 superView.frame = CGRect(x: initFrame.origin.x, y: initFrame.origin.y,
                                          width: initFrame.size.width, height: initFrame.size.height - keyboardFrame.height)
-                self.showDimView(height: initFrame.size.height - keyboardFrame.height - 45)
+                self.showDimView(height: initFrame.size.height - keyboardFrame.height - self.frame.height)
             }, completion: nil)
         }
+        
+        self.keyboardHeight = keyboardFrame.height
     }
     
     func keyboardWillChangeHide(_ notification: Notification) {
@@ -132,11 +136,11 @@ class ReplyTextView: UIView, UIGestureRecognizerDelegate {
     
     func hideDimView() {
         guard let dimView = self.dimView else { return }
+        dimView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: MainScreen().height)
         dimView.isHidden = true
         
         textView.resignFirstResponder()
     }
-    
 }
 
 extension ReplyTextView: UITextViewDelegate {
@@ -146,38 +150,38 @@ extension ReplyTextView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        guard let totalStr = textView.text else { return }
+        guard let totalStr = textView.text, let dimView = self.dimView, let keyboardHeight = self.keyboardHeight else { return }
         
         if totalStr == "" {
             placeholderLabel.isHidden = false
             
-            reportButton.isEnabled = false
-            reportButton.alpha = 0.5
+            saveButton.isEnabled = false
+            saveButton.alpha = 0.5
             return
         } else {
             placeholderLabel.isHidden = true
             
-            reportButton.isEnabled = true
-            reportButton.alpha = 1
+            saveButton.isEnabled = true
+            saveButton.alpha = 1
         }
         
         let lineHeight: CGFloat = 20
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.minimumLineHeight = lineHeight
         let attrStr = NSAttributedString(string: totalStr, attributes: [NSFontAttributeName: MBXFont.AppleSDGothicNeoLight(14.0), NSParagraphStyleAttributeName: paraStyle])
-        
-        let attrStrLine = attrStr.heightWithConstrainedWidth(textView.frame.width - 20) / lineHeight
+    
+        let attrStrLine = attrStr.heightWithConstrainedWidth(textView.frame.width - 10) / lineHeight
         
         switch attrStrLine {
         case 1:
-            textView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: 45)
-//            replyViewHeightLayoutConstraint.constant = 45
+            replyViewHeightLayoutConstraint.constant = 45
+            dimView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: MainScreen().height - keyboardHeight - 45)
         case 2:
-            textView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: 65)
-//            replyViewHeightLayoutConstraint.constant = 65
+            replyViewHeightLayoutConstraint.constant = 65
+            dimView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: MainScreen().height - keyboardHeight - 65)
         default:
-            textView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: 85)
-//            replyViewHeightLayoutConstraint.constant = 85
+            replyViewHeightLayoutConstraint.constant = 85
+            dimView.frame = CGRect(x: 0, y: 0, width: MainScreen().width, height: MainScreen().height - keyboardHeight - 85)
         }
     }
 }
